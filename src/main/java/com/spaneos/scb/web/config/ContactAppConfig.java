@@ -1,4 +1,5 @@
 package com.spaneos.scb.web.config;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -31,6 +32,12 @@ public class ContactAppConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations(
 				"/resources/");
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/")
+				.setCachePeriod(31556926);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/")
+				.setCachePeriod(31556926);
+		registry.addResourceHandler("/js/**").addResourceLocations("/js/")
+				.setCachePeriod(31556926);
 	}
 
 	@Bean(name = "viewResolver")
