@@ -33,11 +33,11 @@ public class ContactAppConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resources/**").addResourceLocations(
 				"/resources/");
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/")
-				.setCachePeriod(31556926);
+				.setCachePeriod(31556925);
 		registry.addResourceHandler("/img/**").addResourceLocations("/img/")
-				.setCachePeriod(31556926);
+				.setCachePeriod(31556925);
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/")
-				.setCachePeriod(31556926);
+				.setCachePeriod(31556925);
 	}
 
 	@Bean(name = "viewResolver")
