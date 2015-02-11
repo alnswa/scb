@@ -6,21 +6,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spaneos.scb.pojo.Contact;
 @Repository
 public class ContactDaoImp implements ContactDao {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private SessionFactory sessionFactory;
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
+	@Transactional
 	public boolean createNewContact(Contact contact) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session=sessionFactory.openSession();
+		Transaction tx=session.beginTransaction();
+		session.save(contact);
+		tx.commit();
+		session.close();
+		return true;
 	}
 
 	@Override
@@ -43,35 +60,8 @@ public class ContactDaoImp implements ContactDao {
 
 	@Override
 	public List<Contact> getContactList() {
-		List<Contact> contactList = new ArrayList<Contact>();
-		contactList = jdbcTemplate.query("select * from contact",
-				new RowMapper<Contact>() {
-
-					@Override
-					public Contact mapRow(ResultSet rs, int count)
-							throws SQLException {
-						Contact contact = new Contact();
-						int cid = rs.getInt("cid");
-						String fname = rs.getString("fullname");
-						String mobile = rs.getString("mobile");
-						String email = rs.getString("email");
-						contact.setCid(cid);
-						contact.setFullName(fname);
-						contact.setEmail(email);
-						contact.setMobile(mobile);
-						return contact;
-					}
-				});
-
-		return contactList;
-	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

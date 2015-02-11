@@ -1,8 +1,12 @@
 package com.spaneos.scb.web.config;
 
+import java.util.Properties;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.apache.commons.dbcp.BasicDataSource;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,10 +14,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.spaneos.scb.pojo.Contact;
 
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.spaneos.scb" })
@@ -67,6 +75,36 @@ public class ContactAppConfig extends WebMvcConfigurerAdapter {
 		basicDataSource.setPassword(environment
 				.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		return basicDataSource;
+	}
+
+	@Autowired
+	@Bean(name = "sessionFactory")
+	public SessionFactory getSessionFactory(DataSource dataSource) {
+		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(
+				dataSource);
+		sessionBuilder.addAnnotatedClasses(Contact.class);
+		sessionBuilder.addProperties(getHibernateProperties());
+		return sessionBuilder.buildSessionFactory();
+	}
+
+	@Autowired
+	@Bean(name = "transactionManager")
+	public HibernateTransactionManager getTransactionManager(
+			SessionFactory sessionFactory) {
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager(
+				sessionFactory);
+
+		return transactionManager;
+	}
+
+	private Properties getHibernateProperties() {
+		Properties properties = new Properties();
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.dialect",
+				"org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.format_sql", "true");
+		properties.put("hibernate.hbm2ddl","update");
+		return properties;
 	}
 
 }

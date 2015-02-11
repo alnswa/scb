@@ -14,8 +14,8 @@ public class ContactServiceImp implements ContactService{
 	
 	@Override
 	public boolean createNewContact(Contact contact) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return contactDao.createNewContact(contact);
 	}
 
 	@Override

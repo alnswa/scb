@@ -35,7 +35,7 @@ public class ContactController  {
 		
 		@RequestMapping(value={"/addcontact"},method=RequestMethod.POST)
 		public String addContact(@ModelAttribute("contact") Contact contact){
-			
+			contactService.createNewContact(contact);
 			return "addcontactform";
 		}
 		

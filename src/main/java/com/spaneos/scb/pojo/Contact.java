@@ -1,6 +1,13 @@
 package com.spaneos.scb.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Contact {
+	@Id
+	@GeneratedValue
 	private int cid;
 	private String fullName;
 	private String mobile;
