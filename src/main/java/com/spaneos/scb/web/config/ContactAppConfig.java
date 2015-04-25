@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,12 +22,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.spaneos.scb.pojo.Contact;
+import com.spaneos.scb.pojo.Employee;
 
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.spaneos.scb" })
 @Configuration
 @PropertySource("classpath:db.properties")
+@Import({ SecurityConfig.class })
 public class ContactAppConfig extends WebMvcConfigurerAdapter {
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
 	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -82,7 +84,7 @@ public class ContactAppConfig extends WebMvcConfigurerAdapter {
 	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(
 				dataSource);
-		sessionBuilder.addAnnotatedClasses(Contact.class);
+		sessionBuilder.addAnnotatedClasses(Employee.class);
 		sessionBuilder.addProperties(getHibernateProperties());
 		return sessionBuilder.buildSessionFactory();
 	}

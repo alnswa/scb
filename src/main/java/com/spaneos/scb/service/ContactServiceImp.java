@@ -6,39 +6,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spaneos.scb.dao.ContactDao;
-import com.spaneos.scb.pojo.Contact;
+import com.spaneos.scb.pojo.Employee;
 @Service
 public class ContactServiceImp implements ContactService{
 	@Autowired
 	private ContactDao contactDao;
-	
-	@Override
-	public boolean createNewContact(Contact contact) {
-		
-		return contactDao.createNewContact(contact);
-	}
 
 	@Override
-	public boolean deleteContact(int cid) {
+	public boolean createNewEmployee(Employee employee) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Contact getContact(int cid) {
+	public boolean deleteEmployee(int cid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Employee getEmployee(int cid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateContact(Contact contact) {
+	public boolean updateEmployee(Employee employee) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Contact> getContactList() {
-		return contactDao.getContactList();
+	public List<Employee> getEmployeeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Employee> getEmployee(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public ContactDao getContactDao() {
@@ -48,5 +55,7 @@ public class ContactServiceImp implements ContactService{
 	public void setContactDao(ContactDao contactDao) {
 		this.contactDao = contactDao;
 	}
+	
+	
 	
 }

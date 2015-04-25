@@ -1,21 +1,15 @@
 package com.spaneos.scb.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spaneos.scb.pojo.Contact;
+import com.spaneos.scb.pojo.Employee;
 @Repository
 public class ContactDaoImp implements ContactDao {
 	@Autowired
@@ -31,35 +25,41 @@ public class ContactDaoImp implements ContactDao {
 
 	@Override
 	@Transactional
-	public boolean createNewContact(Contact contact) {
+	public boolean createNewEmployee(Employee Employee) {
 		Session session=sessionFactory.openSession();
 		Transaction tx=session.beginTransaction();
-		session.save(contact);
+		session.save(Employee);
 		tx.commit();
 		session.close();
 		return true;
 	}
 
 	@Override
-	public boolean deleteContact(int cid) {
+	public boolean deleteEmployee(int cid) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Contact getContact(int cid) {
+	public Employee getEmployee(int cid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updateContact(Contact contact) {
+	public boolean updateEmployee(Employee employee) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Contact> getContactList() {
+	public List<Employee> getEmployeeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Employee> getEmployee(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

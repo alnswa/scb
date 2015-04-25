@@ -2,13 +2,14 @@ package com.spaneos.scb.service;
 
 import java.util.List;
 
-import com.spaneos.scb.pojo.Contact;
+import com.spaneos.scb.pojo.Employee;
 
 public interface ContactService{
-	boolean createNewContact(Contact contact);
-	boolean deleteContact(int cid);
-	Contact getContact(int cid);
-	boolean updateContact(Contact contact);
-	List<Contact> getContactList();
+	boolean createNewEmployee(Employee employee);
+	boolean deleteEmployee(int cid);
+	Employee getEmployee(int cid);
+	boolean updateEmployee(Employee employee);
+	List<Employee> getEmployeeList();
+	List<Employee> getEmployee(String name);
 
 }
